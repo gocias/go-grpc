@@ -1,0 +1,13 @@
+image: golang:1.21
+
+stages:
+  - code
+
+lint_test:
+  stage: code
+  before_script:
+    - go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
+    - go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+  script:
+    - go vet ./...
+    - go test --count=1 ./...
